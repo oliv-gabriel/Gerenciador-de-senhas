@@ -2,20 +2,30 @@ import json
 import string
 import random
 
+def inicio():
+    print("O que você deseja fazer?\nCriar nova conta, digite 1\nBuscar por senha, digite 2\nPara sair, digite 3")
+    nu = input("Digite o numero refente a escolha:")
+
+    escolha(nu)
+    return True
+
 def escolha(n):
-    while True:
-        if n == 1:
+    
+        if n == '1':
             plataforma = input("Qual plataforma você deseja criar uma nova senha: ")
             conta = input("Em que conta você irá utilizar: ")
             salvar(plataforma, conta, random_generator())
-        elif n == 2:
+            inicio()
+            
+        elif n == '2':
             palavra = input("Senha de qual conta ou plataforma você deseja procurar? ")
             buscar_dados(lista_dicionarios, palavra)
+            inicio()
+        elif n == '3':
+            exit()
         else:
-            while n != 1 or 2:
-               print("O que você deseja fazer?\nCriar nova conta, digite 1\nBuscar por senha, digite 2")
-               nu = int(input("Digite o numero refente a escolha:"))
-               escolha(nu)
+            while n != '1' and '2' and '3':
+               inicio()
                 
       
 def random_generator(size=10, chars=string.ascii_uppercase + string.digits):
@@ -63,12 +73,13 @@ def buscar_dados(dicionario, termo):
         for valor in dados.values():
             if termo.lower() in valor.lower():
                 resultados.append(dados)
-                break  # Interrompe o loop interno ao encontrar uma correspondência
-
+            
     if resultados:
         print(f"Resultado(s) da busca para o termo '{termo}':")
         for resultado in resultados:
             print(resultado)
+        
     else:
         print(f"Nenhum resultado encontrado para o termo '{termo}'.")
+    
 
